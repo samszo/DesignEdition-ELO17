@@ -1,0 +1,40 @@
+<?php
+$mapping = $this->api()->searchOne('mappings', ['item_id' => $item->id()])->getContent();
+$markers = $this->api()->search('mapping_markers', ['item_id' => $item->id()])->getContent();
+
+if (!$mapping && !$markers) {
+    return;
+}
+
+$this->headLink()->appendStylesheet($this->assetUrl('js/Leaflet/0.7.7/leaflet.css', 'Mapping'));
+$this->headScript()->appendFile($this->assetUrl('js/Leaflet/0.7.7/leaflet.js', 'Mapping'));
+$this->headScript()->appendFile($this->assetUrl('js/Leaflet.providers/1.1.7/leaflet-providers.js', 'Mapping'));
+$this->headScript()->appendFile($this->assetUrl('js/mapping-show.js', 'Mapping'));
+$this->headScript()->appendFile($this->assetUrl('js/control.fit-bounds.js', 'Mapping'));
+?>
+<div id="mapping-section" class="section">
+    <div id="mapping-map" style="height:500px;"
+        data-mapping="<?php echo $this->escapeHtml(json_encode($mapping)); ?>"
+    ></div>
+</div>
+
+<?php foreach ($markers as $marker): ?>
+<div class="mapping-marker-popup-content" style="display:none;"
+    data-marker-id="<?php echo $this->escapeHtml($marker->id()); ?>"
+    data-marker-lat="<?php echo $this->escapeHtml($marker->lat()); ?>"
+    data-marker-lng="<?php echo $this->escapeHtml($marker->lng()); ?>"
+>
+    <?php if ($marker->label()): ?>
+    <h3><?php echo $this->escapeHtml($marker->label()); ?></h3>
+    <?php endif; ?>
+    <?php if ($marker->media()): ?>
+    <img src="<?php echo $this->escapeHtml($marker->media()->thumbnailUrl('medium')); ?>">
+    <div>
+        <a href="<?php echo $this->escapeHtml($marker->media()->url()); ?>"><?php echo $this->translate('View media'); ?></a>
+    </div>
+    <?php endif; ?>
+    <div>
+        <a href="<?php echo $this->escapeHtml($marker->item()->url()); ?>"><?php echo $this->translate('View item'); ?></a>
+    </div>
+</div>
+<?php endforeach; ?>

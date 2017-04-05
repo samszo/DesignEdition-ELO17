@@ -1,0 +1,26 @@
+{
+    "name": "digihum/LDAP",
+    "description": "Adds LDAP authentication to Omeka-S",
+    "type": "library",
+    "require": {
+        "php": ">=5.6.0",
+        "zendframework/zend-ldap": "^2.7.1"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tim Hollies",
+            "email": "tim.hollies@warwick.ac.uk"
+        }
+    ]
+}

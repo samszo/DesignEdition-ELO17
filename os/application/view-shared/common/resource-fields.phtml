@@ -1,0 +1,30 @@
+<fieldset id='<?php echo $id; ?>' class='<?php echo $class; ?>' aria-labelledby="<?php echo $id; ?>-label">
+    <div class="non-properties">
+    <?php
+    $resourceTemplateSelect = $form->get('o:resource_template[o:id]');
+    if (isset($resource) && $resource->resourceTemplate()):
+        $resourceTemplateSelect->setValue($resource->resourceTemplate()->id());
+    endif;
+    if ($resourceTemplateSelect->getValueOptions()):
+        echo $this->formRow($resourceTemplateSelect);
+    endif;
+
+    $resourceClassSelect = $form->get('o:resource_class[o:id]');
+    if (isset($resource) && $resource->resourceClass()):
+        $resourceClassSelect->setValue($resource->resourceClass()->id());
+    endif;
+    echo $this->formRow($resourceClassSelect);
+    ?>
+    </div>
+    <div id='properties'>
+    </div>
+<?php
+    if (isset($propertySelectorText)) {
+        echo $this->propertySelector($propertySelectorText);
+    } else {
+        echo $this->propertySelector();
+    }
+?>
+    <button id="property-selector-button" class="mobile-only" data-watch-target="#properties"><?php echo $this->translate('Add Property'); ?></button>
+<?php echo $this->partial('common/resource-select-sidebar'); ?>
+</fieldset>

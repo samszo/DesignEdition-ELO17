@@ -1,0 +1,23 @@
+<?php $escape = $this->plugin('escapeHtml');?>
+<?php $this->htmlElement('body')->appendAttribute('class', 'item-set resource browse'); ?>
+
+<div id="content" role="main">
+    <?php echo $this->pageTitle('Collections', 2); ?>
+
+    <?php
+        $itemSets = $this->api()->search('item_sets', [
+            'is_public' => 1,
+            'sort_by' => 'dcterms:title',
+            'sort_order' => 'asc',
+        ])->getContent();
+    ?>
+    <?php if (!empty($itemSets)): ?>
+        <div id="collections">
+            <main>
+                <?php echo $this->partial('psl/item-sets', [
+                    'itemSets' => $itemSets,
+                ]); ?>
+            </main>
+        </div>
+    <?php endif; ?>
+</div>

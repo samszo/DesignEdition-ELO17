@@ -1,0 +1,31 @@
+{
+  "name": "AIDHP",
+  "version": "1.0.0",
+  "description": "The theme for the AIDHP.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hepplerj/aidhp-omeka-theme.git"
+  },
+  "keywords": [
+    "omeka-s",
+    "theme"
+  ],
+  "author": "Jason A. Heppler",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hepplerj/aidhp-omeka-theme/issues"
+  },
+  "homepage": "https://github.com/hepplerj/aidhp-omeka-theme#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.4.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-postcss": "^6.3.0",
+    "gulp-sass": "^2.3.2",
+    "susy": "^2.2.12"
+  }
+}

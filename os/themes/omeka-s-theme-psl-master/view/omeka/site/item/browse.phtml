@@ -1,0 +1,44 @@
+<?php $escape = $this->plugin('escapeHtml');?>
+<?php $this->htmlElement('body')->appendAttribute('class', 'item resource browse'); ?>
+<?php if (isset($itemSet)): ?>
+<?php $this->htmlElement('body')->appendAttribute('class', 'item-set'); ?>
+<?php endif; ?>
+
+<div id="content" role="main">
+    <?php if (isset($itemSet)): ?>
+        <?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
+        <h3>Collections</h3>
+        <div class="metadata">
+            <?php echo $itemSet->displayValues(); ?>
+        </div>
+        <?php echo $this->pageTitle('Contenus', 3); ?>
+    <?php else: ?>
+        <?php echo $this->pageTitle('Contenus', 2); ?>
+    <?php endif; ?>
+
+    <?php echo $this->searchFilters(); ?>
+    <?php echo $this->pagination(); ?>
+
+    <ul class="resource-list">
+        <?php foreach ($items as $item): ?>
+        <li class="item resource">
+            <?php if ($primaryMedia = $item->primaryMedia()): ?>
+            <img
+                src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>"
+                title="<?php echo $escape($primaryMedia->displayTitle()); ?>"
+                alt="<?php echo $escape($primaryMedia->mediaType()); ?> thumbnail"
+            >
+            <?php endif; ?>
+            <h4><a href="<?php echo $this->CleanUrl($item); ?>"><?php echo $item->displayTitle(); ?></a></h4>
+
+            <?php echo $this->updateBasketLink($item); ?>
+
+            <?php if ($description = $item->displayDescription()): ?>
+            <div class="description"><?php echo $description; ?></div>
+            <?php endif; ?>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php echo $this->pagination(); ?>
+    <?php $this->trigger('view.browse.after'); ?>
+</div>

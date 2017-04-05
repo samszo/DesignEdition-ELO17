@@ -1,0 +1,58 @@
+<?php $escape = $this->plugin('escapeHtml'); ?>
+<?php $this->htmlElement('body')->appendAttribute('class', 'item resource show'); ?>
+
+<div id="content" role="navigation">
+    <?php echo $this->SearchForm(); ?>
+
+    <?php echo $this->pageTitle($item->displayTitle(), 2); ?>
+
+    <?php echo $this->universalViewer($item); ?>
+
+    <?php if ($item->media()): ?>
+        <div class="media-list-wrapper">
+            <div class="media-list">
+                <?php foreach ($item->media() as $media): ?>
+                    <a href="<?php echo $media->url(); ?>" class="media resource">
+                        <img src="<?php echo $escape($media->thumbnailUrl('square')); ?>" title="<?php echo $escape($media->displayTitle()); ?>">
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <div class="resource-metadata-wrapper">
+        <div class="resource-metadata">
+            <h2>Métadonnées</h2>
+            <?php echo $item->displayValues(['viewName' => 'psl/resource-values']); ?>
+        </div>
+    </div>
+
+    <?php echo $this->partial('psl/toolbox', [
+        'resource' => $item,
+    ]); ?>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var mediaList = $('div.media-list');
+        if (mediaList.length) {
+            $('<a>')
+                .addClass('media-list-toggle')
+                .html(<?php echo json_encode('Accès aux fichiers'); ?>)
+                .on('click', function(e) {
+                    e.preventDefault();
+                    if (mediaList.is(':visible')) {
+                        mediaList.hide();
+                        $(this).removeClass('media-list-visible');
+                        $(this).addClass('media-list-hidden');
+                    } else {
+                        mediaList.show();
+                        $(this).removeClass('media-list-hidden');
+                        $(this).addClass('media-list-visible');
+                    }
+                })
+                .insertBefore(mediaList)
+                .trigger('click');
+        }
+    });
+</script>

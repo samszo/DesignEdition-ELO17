@@ -1,0 +1,50 @@
+<div class="search-results-header">
+    <div class="search-results-sort">
+        <?php
+            $links = [];
+            $labels = [];
+            foreach ($sortOptions as $name => $label) {
+                list($field, $direction) = preg_split('/ /', $name);
+                $links[$field][] = [
+                    'direction' => $direction,
+                    'name' => $name,
+                    'active' => ($query->getSort() === $name),
+                ];
+                $labels[$field] = $label;
+            }
+        ?>
+        <span>Mode de tri:</span>
+        <?php foreach($links as $field => $link): ?>
+            <div class="sort-field">
+                <span class="sort-label"><?php echo $labels[$field]; ?></span>
+                <div class="sort-directions">
+                    <?php foreach ($link as $l): ?>
+                        <div class="sort-direction sort-<?php echo $l['direction']; ?> <?php echo $l['active'] ? 'sort-active' : ''; ?>" data-name="<?php echo $l['name']; ?>" $>
+                            <img src="<?php echo $this->assetUrl('images/sort-' . $l['direction'] . '.svg'); ?>"/>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <script>
+            $(document).ready(function() {
+                $('.sort-direction').on('click', function() {
+                    Search.sortBy($(this).attr('data-name'));
+                });
+                $('.sort-label').on('click', function() {
+                    var direction = $(this).parents('.sort-field')
+                        .find('.sort-direction')
+                        .not('.sort-active')
+                        .first();
+                    if (direction.length) {
+                        Search.sortBy(direction.attr('data-name'));
+                    }
+                });
+            });
+        </script>
+    </div>
+    <div>
+        <a class="search-view-type search-view-type-grid" href="#"><img src="<?php echo $this->assetUrl('images/grid.svg'); ?>"/></a><!--
+        --><a class="search-view-type search-view-type-list" href="#"><img src="<?php echo $this->assetUrl('images/list.svg'); ?>"/></a>
+    </div>
+</div>

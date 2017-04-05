@@ -1,0 +1,55 @@
+<?php
+$this->htmlElement('html')->setAttribute('lang', 'en');
+$this->headMeta()->setCharset('utf-8');
+$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
+$this->headTitle($this->setting('installation_title', 'Omeka S'))->setSeparator(' · ');
+$this->headLink()->prependStylesheet($this->assetUrl('css/fonts.css'));
+$this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
+$this->headScript()->prependFile($this->assetUrl('js/jquery.js', 'Omeka'));
+
+$this->headScript()->appendFile($this->assetUrl('js/toolbox.js'));
+$this->headLink()->appendStylesheet($this->assetUrl('css/style.css'));
+?>
+<?php echo $this->doctype(); ?>
+<?php echo $this->htmlElement('html'); ?>
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headStyle(); ?>
+        <?php echo $this->headScript(); ?>
+    </head>
+
+    <?php echo $this->htmlElement('body'); ?>
+        <header>
+            <?php echo $this->themeSetting('header_html'); ?>
+
+            <div class="user-links">
+                <?php $identity = $this->identity(); ?>
+                <?php if ($identity): ?>
+                    <?php echo $this->showBasketLink(); ?>
+                    <a href="<?php echo $this->escapeHtml($this->url('logout')); ?>">Déconnexion</a>
+                <?php else: ?>
+                    <a href="<?php echo $this->escapeHtml($this->url('login', [], ['query' => ['redirect' => $this->url(null, [], true)]])); ?>">Connexion</a>
+                <?php endif; ?>
+            </div>
+        </header>
+
+        <nav role="navigation" class="breadcrumbs">
+            <a href="<?php echo $this->url('site', [], true); ?>">Accueil</a>
+            <?php $titleParts = $this->headTitle(); ?>
+            <?php if (count($titleParts) > 1): ?>
+                »
+                <?php echo $titleParts[0]; ?>
+            <?php endif; ?>
+        </nav>
+
+        <main>
+            <?php echo $this->content; ?>
+        </main>
+
+        <footer>
+            <?php echo $this->themeSetting('footer_html'); ?>
+        </footer>
+    </body>
+</html>

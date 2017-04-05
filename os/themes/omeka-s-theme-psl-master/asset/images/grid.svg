@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg4674"
+   height="19.191mm"
+   width="19.191mm"
+   version="1.1"
+   viewBox="0 0 67.999998 67.999998"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="grid.svg">
+  <defs
+     id="defs3058" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1916"
+     inkscape:window-height="1041"
+     id="namedview3056"
+     showgrid="false"
+     inkscape:zoom="12.676545"
+     inkscape:cx="19.090376"
+     inkscape:cy="33.999802"
+     inkscape:window-x="0"
+     inkscape:window-y="37"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4674" />
+  <metadata
+     id="metadata4679">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     id="rect177"
+     class="st22"
+     height="68"
+     width="68"
+     y="-1.2207031e-05"
+     x="2.4414063e-05"
+     style="fill:none" />
+  <g
+     id="g3906">
+    <path
+       id="path179"
+       class="st2"
+       d="m 22.9,41.1 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path181"
+       class="st2"
+       d="m 22.9,30 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path183"
+       class="st2"
+       d="m 22.9,18.9 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path185"
+       class="st2"
+       d="m 34,41.1 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path187"
+       class="st2"
+       d="m 34,30 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path189"
+       class="st2"
+       d="m 34,18.9 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path191"
+       class="st2"
+       d="m 45.1,41.1 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path193"
+       class="st2"
+       d="m 45.1,30 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+    <path
+       id="path195"
+       class="st2"
+       d="m 45.1,18.9 c 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+  </g>
+</svg>

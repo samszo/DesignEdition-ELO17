@@ -1,0 +1,25 @@
+<?php $this->htmlElement('body')->appendAttribute('class', 'media resource show'); ?>
+
+<div id="content" role="main">
+    <?php echo $this->SearchForm(); ?>
+
+    <?php
+        $pageTitle = $media->item()->displayTitle() . ' : ' . $media->value('dcterms:title', ['type' => 'literal', 'default' => $media->filename()]);
+        echo $this->pageTitle($pageTitle, 2);
+    ?>
+
+    <?php echo $media->render(); ?>
+
+    <?php if (!empty($media->values())): ?>
+        <div class="resource-metadata-wrapper">
+            <div class="resource-metadata">
+                <h2>Métadonnées</h2>
+                <?php echo $media->displayValues(['viewName' => 'psl/resource-values']); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php echo $this->partial('psl/toolbox', [
+        'resource' => $media,
+    ]); ?>
+</div>

@@ -1,0 +1,33 @@
+<?php
+$this->htmlElement('body')->appendAttribute('class', 'sites show');
+$escape = $this->plugin('escapeHtml');
+$roles = [
+    'viewer' => $this->translate('Viewer'),
+    'editor' => $this->translate('Editor')
+];
+?>
+
+<?php echo $this->pageTitle(sprintf($this->translate('Site: “%s”'), $site->title())); ?>
+
+<div id="page-actions">
+    <?php if ($site->userIsAllowed('update')): ?>
+        <?php echo $site->link($this->translate('Edit'), null, ['class' => 'button']); ?>
+    <?php endif; ?>
+    <a href="<?php echo $site->siteUrl(); ?>" class="button"><?php echo $this->translate('View'); ?></a>
+</div>
+<div class="breadcrumbs">
+    <a href="<?php echo $this->url('admin/site'); ?>" class="o-icon-left"><?php echo $this->translate('Back to site list'); ?></a>
+</div>
+
+<div class="property">
+    <h4>URL slug</h4>
+    <div class="value"><?php echo $escape($site->slug()); ?></div>
+</div>
+<div class="property">
+    <h4>Title</h4>
+    <div class="value"><?php echo $escape($site->title()); ?></div>
+</div>
+<div class="property">
+    <h4>Theme</h4>
+    <div class="value"><?php echo $escape($site->theme()); ?></div>
+</div>

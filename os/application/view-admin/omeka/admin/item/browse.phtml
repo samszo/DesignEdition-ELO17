@@ -1,0 +1,127 @@
+<?php
+$this->htmlElement('body')->appendAttribute('class', 'items browse');
+$escape = $this->plugin('escapeHtml');
+$sortHeadings = [
+    [
+        'label' => $this->translate('Title'),
+        'value' => 'dcterms:title'
+    ],
+    [
+        'label' => $this->translate('Class'),
+        'value' => 'resource_class_label'
+    ],
+    [
+        'label' => $this->translate('Owner'),
+        'value' => 'owner_name'
+    ],
+    [
+        'label' => $this->translate('Date Created'),
+        'value' => 'created'
+    ],
+];
+?>
+
+<?php echo $this->pageTitle($this->translate('Items')); ?>
+
+<div id="page-actions">
+    <?php if ($this->userIsAllowed('Omeka\Api\Adapter\ItemAdapter', 'create')): ?>
+    <?php echo $this->hyperlink($this->translate('Add new item'), $this->url(null, ['action' => 'add'], true), ['class' => 'button']); ?>
+    <?php endif; ?>
+</div>
+
+<?php echo $this->searchFilters(); ?>
+
+<div class="browse-controls">
+<?php echo $this->pagination(); ?>
+<?php echo $this->hyperlink($this->translate('Advanced search'), $this->url(null, ['action' => 'search'], ['query' => $this->params()->fromQuery()], true), ['class' => 'advanced-search']); ?>
+<?php echo $this->sortSelector($sortHeadings); ?>
+</div>
+<?php $this->trigger('view.browse.before'); ?>
+<?php if ($items): ?>
+<table class="tablesaw" data-tablesaw-mode="stack">
+    <thead>
+        <tr>
+            <th><?php echo $this->translate('Title'); ?></th>
+            <th><?php echo $this->translate('Class'); ?></th>
+            <th><?php echo $this->translate('Owner'); ?></th>
+            <th><?php echo $this->translate('Date Created'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($items as $item): ?>
+        <?php
+        if ($owner = $item->owner()) {
+            $ownerText = $this->hyperlink(
+                $owner->name(),
+                $this->url('admin/id', [
+                    'controller' => 'user',
+                    'action' => 'show',
+                    'id' => $owner->id()]
+                )
+            );
+        } else {
+            $ownerText = $this->translate('[no owner]');
+        }
+        ?>
+        <tr>
+            <td>
+                <ul class="actions">
+                    <?php if ($item->userIsAllowed('update')): ?>
+                    <li><?php echo $item->link('', 'edit', [
+                        'class' => 'o-icon-edit',
+                        'aria-label' => $this->translate('Edit'),
+                        'title' => $this->translate('Edit'),
+                    ]); ?></li>
+                    <?php endif; ?>
+                    <?php if ($item->userIsAllowed('delete')): ?>
+                    <li><a href="#"
+                        data-sidebar-content-url="<?php echo $escape($item->url('delete-confirm')); ?>"
+                        class="o-icon-delete sidebar-content"
+                        aria-label="<?php echo $escape($this->translate('Delete')); ?>"
+                        title="<?php echo $escape($this->translate('Delete')); ?>"></a></li>
+                    <?php endif; ?>
+                    <li><a href="#"
+                        data-sidebar-content-url="<?php echo $escape($item->url('show-details')); ?>"
+                        class="o-icon-more sidebar-content"
+                        aria-label="<?php echo $escape($this->translate('Details')); ?>"
+                        title="<?php echo $escape($this->translate('Details')); ?>"></a></li>
+                </ul>
+                <?php if ($media = $item->primaryMedia()): ?>
+                <img src="<?php echo $escape($media->thumbnailUrl('square')); ?>">
+                <?php endif; ?>
+                <span class="resource-name">
+                    <?php echo $item->link($item->displayTitle()); ?>
+                </span>
+                <?php if (!$item->isPublic()): ?>
+                    <span class="o-icon-private"></span>
+                <?php endif; ?>
+            </td>
+            <td><?php echo $escape($item->displayResourceClassLabel()); ?></td>
+            <td><?php echo $ownerText; ?></td>
+            <td><?php echo $escape($this->i18n()->dateFormat($item->created())); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php $this->trigger('view.browse.after'); ?>
+<div class="browse-controls">
+    <?php echo $this->pagination(); ?>
+</div>
+
+<div class="sidebar">
+    <a href="#"
+        class="sidebar-close o-icon-close"
+        aria-label="<?php echo $escape($this->translate('Close')); ?>"
+        title="<?php echo $escape($this->translate('Close')); ?>"></a>
+    <div class="sidebar-content"></div>
+</div>
+
+<?php else: ?>
+
+<div class="no-resources">
+    <p><?php echo $this->translate('Omeka could not find any items.'); ?></p>
+</div>
+
+<?php endif; ?>
+
+

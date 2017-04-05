@@ -1,0 +1,36 @@
+<?php $escape = $this->plugin('escapeHtml'); ?>
+<?php $this->htmlElement('body')->appendAttribute('class', 'item-set show'); ?>
+
+<div id="content" role="navigation">
+    <?php echo $this->pageTitle($itemSet->displayTitle(), 2); ?>
+    <?php echo $itemSet->displayValues(); ?>
+    <?php $itemCount = $itemSet->itemCount(); ?>
+    <?php if ($itemCount > 0): ?>
+    <div class="items">
+        <?php if ($itemCount < 5): ?>
+        <h3><?php echo sprintf('Tous les contenus (%s)', $itemCount); ?></h3>
+        <?php else: ?>
+        <h3>Contenus récents</h3>
+        <?php echo $this->hyperlink('Voir tous les contenus de la collection', $this->url('site/resource', ['site-slug' => $site->slug(), 'controller' => 'item', 'action' => 'browse'], ['query' => ['item_set_id' => $itemSet->id()]])); ?>
+        <?php endif; ?>
+        <ul class="resource-list">
+            <?php foreach ($items as $item): ?>
+            <li class="item resource">
+                <?php if ($primaryMedia = $item->primaryMedia()): ?>
+                <img
+                    src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>"
+                    title="<?php echo $escape($primaryMedia->displayTitle()); ?>"
+                    alt="<?php echo $escape($primaryMedia->mediaType()); ?> thumbnail"
+                >
+                <?php endif; ?>
+                <h4><a href="<?php echo $this->CleanUrl($item); ?>"><?php echo $item->displayTitle(); ?></a></h4>
+                <?php if ($description = $item->displayDescription()): ?>
+                <div class="description"><?php echo $description; ?></div>
+                <?php endif; ?>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php endif; ?>
+</div>
+<?php $this->trigger('view.show.after'); ?>

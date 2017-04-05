@@ -1,0 +1,47 @@
+<div class="search-results-footer">
+    <nav class="pagination" role="navigation">
+        <?php if ($totalCount): ?>
+            <?php
+                $pages = [$currentPage];
+                $p = $currentPage - 1;
+                $count = 0;
+                while ($p >= 1 && $count < 4) {
+                    array_unshift($pages, $p);
+                    $count++;
+                    --$p;
+                }
+
+                $p = $currentPage + 1;
+                $count = 0;
+                while ($p <= $pageCount && $count < 4) {
+                    array_push($pages, $p);
+                    $count++;
+                    ++$p;
+                }
+            ?>
+
+            <?php if ($currentPage > 1): ?>
+                <span class="previous">
+                    <a href="<?php echo $this->escapeHtml($previousPageUrl); ?>"><img src="<?php echo $this->assetUrl('images/previous.svg'); ?>"/></a>
+                </span>
+            <?php endif; ?>
+
+            <?php foreach ($pages as $page): ?>
+                <?php $q = array_merge($query, ['page' => $page]); ?>
+                <span class="page <?php echo $page == $currentPage ? 'active' : ''; ?>">
+                    <?php if ($page != $currentPage): ?>
+                        <a href="<?php echo $this->escapeHtml($this->url(null, [], ['query' => $q], true)); ?>"><?php echo $page; ?></a>
+                    <?php else: ?>
+                        <span><?php echo $page; ?></span>
+                    <?php endif; ?>
+                </span>
+            <?php endforeach; ?>
+
+            <?php if ($currentPage < $pageCount): ?>
+                <span class="next">
+                    <a href="<?php echo $this->escapeHtml($nextPageUrl); ?>"><img src="<?php echo $this->assetUrl('images/next.svg'); ?>"/></a>
+                </span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </nav>
+</div>

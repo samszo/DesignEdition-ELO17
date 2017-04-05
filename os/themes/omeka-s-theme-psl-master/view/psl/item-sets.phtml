@@ -1,0 +1,18 @@
+<?php foreach ($itemSets as $itemSet): ?>
+    <?php
+        $itemSetTitle = $itemSet->value('dcterms:alternative', ['type' => 'literal']);
+        if (!isset($itemSetTitle)) {
+            $itemSetTitle = $itemSet->displayTitle();
+        }
+    ?>
+    <div class="collection">
+        <?php $media = $itemSet->primaryMedia(); ?>
+        <a <?php if ($media): ?>style="background-image: url(<?php echo $media->thumbnailUrl('large'); ?>)"<?php endif; ?> href="<?php echo $this->url('search-page-' . $this->themeSetting('search_page_id'), [], ['query' => ['itemSet' => ['ids' => [$itemSet->id()]]]], true); ?>">
+            <div class="collection-title">
+                <div>
+                    <span><?php echo $itemSetTitle; ?></span>
+                </div>
+            </div>
+        </a>
+    </div>
+<?php endforeach; ?>

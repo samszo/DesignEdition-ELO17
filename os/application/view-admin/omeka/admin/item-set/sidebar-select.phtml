@@ -1,0 +1,30 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+?>
+
+<h3><?php echo $this->translate('Select Item Set'); ?></h3>
+<div class="search-nav">
+    <div id="sidebar-resource-search" class="resource-search">
+        <input type="text" value="<?php echo $escape($searchValue); ?>" id="resource-list-search">
+        <button
+        data-search-url="<?php echo $escape($this->url('admin/default', ['controller' => 'item-set', 'action' => 'sidebar-select'])); ?>"
+        type="button" class="o-icon-search"><?php echo $this->translate('Search'); ?></button>
+    </div>
+<?php echo $this->pagination('common/sidebar-pagination.phtml'); ?>
+</div>
+
+<div class="resource-list">
+    <?php foreach ($itemSets as $itemSet):?>
+    <div class="resource item-set">
+        <?php if ($media = $itemSet->primaryMedia()): ?>
+        <img src="<?php echo $escape($media->thumbnailUrl('square')); ?>">
+        <?php endif; ?>
+        <span class="resource-name">
+            <a href="#"
+            class="sidebar-content"
+            data-sidebar-content-url="<?php echo $escape($itemSet->url('show-details')); ?>" data-sidebar-selector="#resource-details"><?php echo $escape($itemSet->displayTitle()); ?></a></span>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+

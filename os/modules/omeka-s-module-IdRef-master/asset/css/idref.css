@@ -1,0 +1,9 @@
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+fieldset[data-data-type="idref"] input.value {
+    width: 100%;
+}

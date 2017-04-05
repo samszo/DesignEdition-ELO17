@@ -1,0 +1,330 @@
+<?php
+    $this->headScript()->appendFile($this->assetUrl('jquery-ui.min.js', 'jQueryUI'));
+    $this->headLink()->appendStylesheet($this->assetUrl('jquery-ui.min.css', 'jQueryUI'));
+    $this->headScript()->appendFile($this->assetUrl('leaflet/leaflet.js', 'PslSearchForm'));
+    $this->headLink()->appendStylesheet($this->assetUrl('leaflet/leaflet.css', 'PslSearchForm'));
+    $this->headScript()->appendFile($this->assetUrl('js/psl-tabs.js', 'PslSearchForm'));
+    $this->headLink()->appendStylesheet($this->assetUrl('css/psl-form.css', 'PslSearchForm'));
+?>
+
+<?php $form->prepare(); ?>
+<?php echo $this->form()->openTag($form); ?>
+
+<div id="psl-search-form-wrapper">
+    <button type="button" class="psl-new-search"><?php echo $this->translate('New search'); ?></button>
+    <div id="psl-search-form">
+        <ul class="psl-tabs">
+            <li class="psl-tab-map">
+                <a href="#psl-search-form-map" title="<?php echo $this->translate('Location'); ?>"><i class="fa fa-map-marker"></i></a>
+            </li>
+            <li class="psl-tab-date">
+                <a href="#psl-search-form-date" title="<?php echo $this->translate('Time period'); ?>"><i class="fa fa-hourglass-half"></i></a>
+            </li>
+            <li class="psl-tab-itemset">
+                <a href="#psl-search-form-itemset" title="<?php echo $this->translate('Collections'); ?>"><i class="fa fa-book"></i></a>
+            </li>
+            <li class="psl-tab-search">
+                <button type="button" class="reset-tab" data-tab="search"><i class="fa fa-times-circle-o"></i></button>
+                <?php echo $this->formText($form->get('q')); ?>
+            </li>
+            <li class="psl-tab-text">
+                <a href="#psl-search-form-text" title="<?php echo $this->translate('More'); ?>"><i class="fa fa-plus"></i></a>
+            </li>
+            <li class="psl-tab-submit"><input type="submit" value="OK"/></li>
+        </ul>
+        <div id="psl-search-form-map">
+            <?php echo $this->formCollection($form->get('map'), false); ?>
+            <div id="psl-search-form-leaflet-map"></div>
+            <button type="button" class="reset-tab" data-tab="map"><?php echo $this->translate('Reset'); ?></button>
+        </div>
+        <div id="psl-search-form-date">
+            <label><?php echo $this->translate('Time period'); ?></label>
+            <?php echo $this->formCollection($form->get('date'), false); ?>
+            <div id="psl-search-form-date-slider"></div>
+            <div id="psl-search-form-date-graduations">
+                <div><?php echo $this->translate('14th century'); ?></div>
+                <div><?php echo $this->translate('15th'); ?></div>
+                <div><?php echo $this->translate('16th'); ?></div>
+                <div><?php echo $this->translate('17th'); ?></div>
+                <div><?php echo $this->translate('18th'); ?></div>
+                <div><?php echo $this->translate('19th'); ?></div>
+                <div><?php echo $this->translate('20th'); ?></div>
+                <div><?php echo $this->translate('21th century'); ?></div>
+            </div>
+            <button type="button" class="reset-tab" data-tab="date"><?php echo $this->translate('Reset'); ?></button>
+        </div>
+        <div id="psl-search-form-itemset">
+            <?php echo $this->formCollection($form->get('itemSet'), false); ?>
+            <button type="button" class="reset-tab" data-tab="itemset"><?php echo $this->translate('Reset'); ?></button>
+        </div>
+        <div id="psl-search-form-text">
+            <div>
+                <div class="filters">
+                    <?php $filters = $form->get('text')->get('filters'); ?>
+                    <?php foreach ($filters->getFieldsets() as $fieldset): ?>
+                        <?php echo $this->formCollection($fieldset, true); ?>
+                    <?php endforeach; ?>
+                    <?php echo $this->formCollection()->renderTemplate($filters); ?>
+                    <button type="button" class="psl-add-filter"><i class="fa fa-plus"></i></button>
+                </div>
+                <?php echo $this->formRow($form->get('text')->get('creation-year')); ?>
+            </div>
+            <button type="button" class="reset-tab" data-tab="text"><?php echo $this->translate('Reset'); ?></button>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->form()->closeTag(); ?>
+
+<script>
+    $(document).ready(function() {
+        var markers = [];
+
+        var selectMarker = function(marker) {
+            marker.selected = true;
+            marker.setOpacity(1);
+        };
+        var deselectMarker = function(marker) {
+            marker.selected = false;
+            marker.setOpacity(0.5);
+        };
+        var deselectAllMarkers = function() {
+            for (name in markers) {
+                deselectMarker(markers[name]);
+            }
+        };
+
+        var spatialCoverageInput = $('#psl-search-form input[name="map[spatial-coverage]"]');
+        spatialCoverageInput.on('change', function() {
+            var name = $(this).val();
+            deselectAllMarkers();
+            if (markers[name]) {
+                selectMarker(markers[name]);
+            }
+        });
+
+        var locations = <?php echo json_encode($form->getLocations()); ?>;
+
+        var map = L.map('psl-search-form-leaflet-map', {
+            scrollWheelZoom: false,
+            attributionControl: false
+        }).setView([50.695, -5.537], 3);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+        for (name in locations) {
+            var coords = locations[name]['coords'];
+            var count = locations[name]['count']
+
+            if (coords.indexOf(',') === -1) {
+                continue;
+            }
+
+            var marker = L.marker(coords.split(','), {
+                title: name,
+                opacity: 0.5
+            }).addTo(map);
+
+            marker.selected = false;
+            marker.name = name;
+
+            marker.bindPopup(name + ' (' + count + ')');
+            marker.on('click', function(e) {
+                var m = e.target;
+                spatialCoverageInput.val(m.name).change();
+            });
+            marker.on('mouseover', function(e) {
+                var m = e.target;
+                if (!m.selected) {
+                    m.setOpacity(0.75);
+                }
+            });
+            marker.on('mouseout', function(e) {
+                var m = e.target;
+                if (!m.selected) {
+                    m.setOpacity(0.5);
+                }
+            });
+
+            markers[name] = marker;
+        }
+
+        spatialCoverageInput.trigger('change');
+    });
+
+    $(document).ready(function() {
+        var dateFrom = $('#psl-search-form input[name="date[from]"]');
+        var dateTo = $('#psl-search-form input[name="date[to]"]');
+        var dateMin = 1300;
+        var dateMax = 2100;
+
+        $('#psl-search-form-date-slider').slider({
+            range: true,
+            min: dateMin,
+            max: dateMax,
+            step: 100,
+            values: [dateFrom.val() || dateMin, dateTo.val() || dateMax],
+            change: function(event, ui) {
+                var from = ui.values[0] > dateMin ? ui.values[0] + 1 : '';
+                var to = ui.values[1] < dateMax ? ui.values[1] : '';
+                if (from != dateFrom.val()) {
+                    dateFrom.val(from).change();
+                }
+                if (to != dateTo.val()) {
+                    dateTo.val(to).change();
+                }
+            }
+        });
+
+        dateFrom.parents('.field').hide();
+        dateTo.parents('.field').hide();
+    });
+
+    $(document).ready(function() {
+        $('#psl-search-form .psl-add-filter').on('click', function() {
+            var filters = $(this).parents('.filters');
+            var count = filters.children('.filter').length;
+            var template = filters.children('span').attr('data-template');
+            template = template.replace(/__index__/g, count);
+            filters.children('.filter').last().after(template);
+        });
+    });
+
+    $(document).ready(function() {
+        var form = $('#psl-search-form');
+
+        form.pslTabs();
+
+        var mapInputsSelector = '#psl-search-form-map input';
+        var dateInputsSelector = '#psl-search-form-date input';
+        var itemsetInputsSelector = '#psl-search-form-itemset input';
+        var searchInputsSelector = '.psl-tab-search input';
+        var textInputsSelector = '#psl-search-form-text input';
+
+        var tabs = {
+            map: {
+                inputsSelector: mapInputsSelector,
+                isPopulated: function() {
+                    var inputs = form.find(mapInputsSelector).toArray();
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].value !== '') {
+                            return true;
+                        }
+                    }
+                },
+                reset: function() {
+                    form.find(mapInputsSelector).val('').change();
+                }
+            },
+            date: {
+                inputsSelector: dateInputsSelector,
+                isPopulated: function() {
+                    var inputs = form.find(dateInputsSelector).toArray();
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].value !== '') {
+                            return true;
+                        }
+                    }
+                },
+                reset: function() {
+                    var dateSlider = $('#psl-search-form-date-slider');
+                    var min = dateSlider.slider('option', 'min');
+                    var max = dateSlider.slider('option', 'max');
+                    dateSlider.slider('values', [min, max]);
+                }
+            },
+            itemset: {
+                inputsSelector: itemsetInputsSelector,
+                isPopulated: function() {
+                    var inputs = form.find(itemsetInputsSelector).toArray();
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].checked) {
+                            return true;
+                        }
+                    }
+                },
+                reset: function() {
+                    form.find(itemsetInputsSelector).prop('checked', false).change();
+                }
+            },
+            search: {
+                inputsSelector: searchInputsSelector,
+                isPopulated: function() {
+                    var inputs = form.find(searchInputsSelector).toArray();
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].value !== '') {
+                            return true;
+                        }
+                    }
+                },
+                reset: function() {
+                    form.find(searchInputsSelector).val('').change();
+                }
+            },
+            text: {
+                inputsSelector: textInputsSelector,
+                isPopulated: function() {
+                    var inputs = form.find(textInputsSelector).toArray();
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].value !== '') {
+                            return true;
+                        }
+                    }
+                },
+                reset: function() {
+                    form.find(textInputsSelector).parents('.filter').slice(2).remove();
+                    form.find(textInputsSelector).val('').change();
+                    $('#psl-search-form-text select').each(function() {
+                        this.selectedIndex = 0;
+                    });
+                }
+            }
+        };
+
+        var formIsPopulated = function() {
+            return form.find('.psl-tab-populated').length > 0;
+        };
+
+        // Populated tab markers
+        for (name in tabs) {
+            var tab = tabs[name];
+            var handler = (function(name) {
+                return function() {
+                    var li = form.find('li.psl-tab-' + name);
+                    var div = $('#psl-search-form-' + name);
+                    if (tabs[name].isPopulated()) {
+                        li.addClass('psl-tab-populated');
+                        div.addClass('psl-tab-populated');
+                    } else {
+                        li.removeClass('psl-tab-populated');
+                        div.removeClass('psl-tab-populated');
+                    }
+
+                    var newSearchButton = $('#psl-search-form-wrapper .psl-new-search');
+                    if (formIsPopulated()) {
+                        newSearchButton.css('visibility', 'visible');
+                    } else {
+                        newSearchButton.css('visibility', 'hidden');
+                    }
+                };
+            })(name);
+
+            form.on('change keyup', tab.inputsSelector, handler);
+            form.find(tab.inputsSelector).trigger('change');
+        }
+
+        // Reset buttons
+        form.find('button.reset-tab').on('click', function(e) {
+            e.preventDefault();
+            var name = $(this).attr('data-tab');
+            tabs[name].reset();
+        });
+
+        $('#psl-search-form-wrapper .psl-new-search').on('click', function(e) {
+            e.preventDefault();
+            for (name in tabs) {
+                tabs[name].reset();
+            }
+        });
+    });
+</script>

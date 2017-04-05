@@ -1,0 +1,195 @@
+#psl-search-form-wrapper .psl-new-search {
+    background: lightgreen;
+}
+
+#psl-search-form-wrapper input[type="submit"],
+#psl-search-form-wrapper button {
+    border: 0 none;
+}
+
+#psl-search-form {
+    border: 1px solid black;
+    margin-bottom: 2em;
+}
+
+#psl-search-form > div {
+    background-color: #cccccc;
+    padding: 0.5em 1em;
+}
+
+ul.psl-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+ul.psl-tabs li {
+    list-style-type: none;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    flex-basis: 50px;
+    background-color: white;
+}
+
+ul.psl-tabs li:last-child {
+    border-right: 0 none;
+}
+
+ul.psl-tabs li.psl-tab-active {
+    border-bottom: 1px solid transparent;
+    background-color: #cccccc;
+}
+
+ul.psl-tabs li.psl-tab-search {
+    flex-grow: 1;
+}
+
+ul.psl-tabs a {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+    color: black;
+}
+
+ul.psl-tabs a:active,
+ul.psl-tabs a:focus {
+    outline: none;
+}
+
+ul.psl-tabs li.psl-tab-populated a {
+    border-bottom-color: red;
+}
+
+ul.psl-tabs li.psl-tab-active a {
+    border-bottom-color: transparent;
+}
+
+ul.psl-tabs i {
+    font-size: 36px;
+}
+
+ul.psl-tabs li.psl-tab-search input {
+    border: 0 none;
+    width: 100%;
+    height: 100%;
+    padding-left: 50px;
+}
+
+ul.psl-tabs li.psl-tab-submit input {
+    width: 100%;
+    height: 100%;
+}
+
+#psl-search-form button.reset-tab {
+    visibility: hidden;
+    background-color: transparent;
+    border: 1px solid red;
+    color: red;
+    padding: 0;
+}
+
+#psl-search-form .psl-tab-populated button.reset-tab {
+    visibility: visible;
+}
+
+#psl-search-form .psl-tab-search {
+    position: relative;
+}
+
+#psl-search-form .psl-tab-search button.reset-tab {
+    border: 0 none;
+    position: absolute;
+    height: 100%;
+}
+
+#psl-search-form-itemset .field {
+    margin: 0;
+    display: block;
+}
+
+#psl-search-form-itemset .field-meta {
+    padding: 0;
+}
+
+#psl-search-form-itemset .field-meta label {
+    font-weight: bold;
+}
+
+#psl-search-form-itemset .inputs {
+    padding: 0;
+    width: auto;
+}
+
+#psl-search-form-itemset .inputs > label {
+    display: block;
+}
+
+#psl-search-form-itemset .inputs input {
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+#psl-search-form-date > label {
+    font-weight: bold;
+}
+
+#psl-search-form-date #psl-search-form-date-slider {
+    margin-top: 1em;
+    height: 10px;
+}
+
+#psl-search-form-date #psl-search-form-date-slider .ui-slider-handle {
+    background: black;
+    width: 10px;
+    margin-left: -5px;
+    top: -8px;
+    border-radius: 0;
+    border: 0 none;
+}
+
+#psl-search-form-date #psl-search-form-date-slider .ui-slider-range {
+    background: black;
+}
+
+#psl-search-form-date-graduations {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+}
+
+#psl-search-form-date-graduations > div {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    flex-grow: 1;
+    flex-basis: 12.5%;
+    text-align: center;
+}
+
+#psl-search-form-date-graduations > div:last-child {
+    border-right: 0 none;
+}
+
+#psl-search-form-date-graduations > div:first-child {
+    border-left: 0 none;
+}
+
+#psl-search-form-text .filter {
+    border: 0 none;
+    padding: 0.25em 0;
+    display: flex;
+}
+
+#psl-search-form-text .filter input[type="text"] {
+    margin-left: 2em;
+}
+
+#psl-search-form-text .field-meta {
+    width: auto;
+}
+
+#psl-search-form-leaflet-map {
+    height: 400px;
+}

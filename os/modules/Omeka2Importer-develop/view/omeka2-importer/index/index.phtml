@@ -1,0 +1,24 @@
+<?php
+$form->prepare();
+$escapeHtml = $this->plugin('escapeHtml');
+$this->headScript()->appendFile($this->assetUrl('js/omeka2importer.js', 'Omeka2Importer'));
+$this->headLink()->appendStylesheet($this->assetUrl('css/omeka2importer.css', 'Omeka2Importer'));
+
+?>
+
+<?php echo $this->pageTitle($this->translate('Import · Omeka 2 Importer')); ?>
+
+<?php echo $this->form()->openTag($form); ?>
+<fieldset id='page-actions'>
+    <input type='submit' value='Next' />
+</fieldset>
+<fieldset id="omeka2-import-basics-fieldset">
+    <?php echo $this->formCollection($form, false); ?>
+    <p>Enter the Omeka 2 API endpoint.</p>
+</fieldset>
+
+<div id='mapping-data'>
+
+</div>
+
+<?php echo $this->form()->closeTag($form); ?>

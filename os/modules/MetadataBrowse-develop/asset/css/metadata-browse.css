@@ -1,0 +1,39 @@
+.input-header {
+    display: none;
+}
+
+.field.delete {
+    background-color: #fcc;
+}
+
+
+.field-meta {
+    width: calc(100% - 5em);
+    display: inline;
+}
+
+.field-meta .expand,
+.field-meta .collapse {
+    margin: 0 0.5em 0;
+}
+
+.collapse + .collapsible {
+    margin-top: .5em;
+}
+
+.restore-property {
+    display: none;
+}
+
+a.metadata-browse-link {
+    font-size: 75%;
+    display: block !important;
+}
+
+.uri.value a.metadata-browse-link:after {
+    content: "";
+}
+
+.value.items a.metadata-browse-link:after {
+    content: "";
+}

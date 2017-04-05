@@ -1,0 +1,152 @@
+# Translation template for module PslSearchForm.
+# Copyright (C) 2016 BibLibre
+# This file is distributed under the same license as the PslSearchForm package.
+# Julian Maurice <julian.maurice@biblibre.com>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PslSearchForm\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-29 15:13+0100\n"
+"PO-Revision-Date: 2016-11-29 17:09+0100\n"
+"Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/Form/PslForm.php:55 src/Form/PslForm.php:58
+msgid "Search"
+msgstr "Recherche"
+
+#: src/Form/PslForm.php:71
+msgid "Submit"
+msgstr ""
+
+#: src/Form/PslForm.php:160
+msgid "date"
+msgstr "date"
+
+#: src/Form/PslForm.php:166
+msgid "From year"
+msgstr "Depuis l'année"
+
+#: src/Form/PslForm.php:177
+msgid "To year"
+msgstr "À l'année"
+
+#: src/Form/PslForm.php:195 view/psl-search-form/psl-search-form.phtml:24
+msgid "Collections"
+msgstr "Collections"
+
+#: src/Form/PslForm.php:223
+msgid "Creation year"
+msgstr "Année de création"
+
+#: src/Form/PslForm.php:226
+msgid "YYYY"
+msgstr "AAAA"
+
+#: src/Form/PslFormConfigFieldset.php:51
+msgid "Is Public field"
+msgstr "Champ 'est publique'"
+
+#: src/Form/PslFormConfigFieldset.php:53 src/Form/PslFormConfigFieldset.php:66
+#: src/Form/PslFormConfigFieldset.php:79 src/Form/PslFormConfigFieldset.php:92
+#: src/Form/PslFormConfigFieldset.php:105
+msgid "None"
+msgstr "Aucun"
+
+#: src/Form/PslFormConfigFieldset.php:64
+msgid "Date range field"
+msgstr "Champ 'intervalle de date'"
+
+#: src/Form/PslFormConfigFieldset.php:77
+msgid "Item set id field"
+msgstr "Champ 'identifiants de collections'"
+
+#: src/Form/PslFormConfigFieldset.php:90
+msgid "Creation year field"
+msgstr "Champ 'année de création'"
+
+#: src/Form/PslFormConfigFieldset.php:103
+msgid "Spatial coverage field"
+msgstr "Champ 'couverture spatiale'"
+
+#: src/Form/PslFormConfigFieldset.php:120
+msgid "Advanced search fields"
+msgstr "Champs de recherche avancée"
+
+#: src/Form/PslFormConfigFieldset.php:135
+msgid "Enabled"
+msgstr "Activé"
+
+#: src/Form/PslFormConfigFieldset.php:143
+msgid "Weight"
+msgstr "Poids"
+
+#: src/Form/PslFormConfigFieldset.php:181
+msgid "Locations"
+msgstr "Lieux"
+
+#: src/Form/PslFormConfigFieldset.php:191
+msgid "Latitude, Longitude"
+msgstr "Latitude, Longitude"
+
+#: view/psl-search-form/psl-search-form.phtml:14
+msgid "New search"
+msgstr "Nouvelle recherche"
+
+#: view/psl-search-form/psl-search-form.phtml:18
+msgid "Location"
+msgstr "Lieu"
+
+#: view/psl-search-form/psl-search-form.phtml:21
+#: view/psl-search-form/psl-search-form.phtml:41
+msgid "Time period"
+msgstr "Période temporelle"
+
+#: view/psl-search-form/psl-search-form.phtml:31
+msgid "More"
+msgstr "Plus"
+
+#: view/psl-search-form/psl-search-form.phtml:38
+#: view/psl-search-form/psl-search-form.phtml:54
+#: view/psl-search-form/psl-search-form.phtml:58
+#: view/psl-search-form/psl-search-form.phtml:72
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: view/psl-search-form/psl-search-form.phtml:45
+msgid "14th century"
+msgstr "XIVe siècle"
+
+#: view/psl-search-form/psl-search-form.phtml:46
+msgid "15th"
+msgstr "XVe"
+
+#: view/psl-search-form/psl-search-form.phtml:47
+msgid "16th"
+msgstr "XVIe"
+
+#: view/psl-search-form/psl-search-form.phtml:48
+msgid "17th"
+msgstr "XVIIe"
+
+#: view/psl-search-form/psl-search-form.phtml:49
+msgid "18th"
+msgstr "XVIIIe"
+
+#: view/psl-search-form/psl-search-form.phtml:50
+msgid "19th"
+msgstr "XIXe"
+
+#: view/psl-search-form/psl-search-form.phtml:51
+msgid "20th"
+msgstr "XXe"
+
+#: view/psl-search-form/psl-search-form.phtml:52
+msgid "21th century"
+msgstr "XXIe siècle"

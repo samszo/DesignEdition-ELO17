@@ -1,0 +1,17 @@
+<?php
+  $this->headLink()->appendStylesheet($this->assetUrl('jquery-ui.min.css', 'jQueryUI'));
+  $this->headScript()->appendFile($this->assetUrl('jquery-ui.min.js', 'jQueryUI'));
+
+  $this->headLink()->appendStylesheet($this->assetUrl('css/idref.css', 'IdRef'));
+  $this->headScript()->appendFile($this->assetUrl('js/idref.js', 'IdRef'));
+?>
+
+<div class="input">
+  <input
+    name=""
+    class="value to-require"
+    placeholder="<?php echo $this->translate("Search in IdRef"); ?>"
+    data-value-key="@value"
+    data-url="<?php echo $this->url('admin/idref-search'); ?>"
+  />
+</div>

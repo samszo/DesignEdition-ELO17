@@ -10,7 +10,9 @@ class MigrerController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $s = new Flux_Site();
+        
+        
     }
 
 

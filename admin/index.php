@@ -15,6 +15,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 /** Zend_Application */
+$www = "/var/www";
+set_include_path(get_include_path().PATH_SEPARATOR.$www."/Zend/library");
 require_once 'Zend/Application.php';
 
 // Create application, bootstrap, and run

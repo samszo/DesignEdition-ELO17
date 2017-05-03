@@ -1,0 +1,30 @@
+<!-- Menu -->
+<nav  id="menu">
+<header class="major">
+	<h2> Menu</h2>
+</header>
+<ul>
+	
+	<BOUCLE_langue(RUBRIQUES){racine}{lang=#LANG}>
+	
+	<BOUCLE_menu(RUBRIQUES){id_parent}>
+	    
+	 <li>
+	       <span class="opener">#TITRE</span>
+	       
+	       <ul>
+		     <BOUCLE_S2menu(RUBRIQUES){id_parent}>
+			<li><a href="spip.php?rubrique#ID_RUBRIQUE">#TITRE</a></li>
+		      </BOUCLE_S2menu>
+	      
+		     <BOUCLE_Smenu(ARTICLES){id_rubrique}>
+			<li><a href="spip.php?article#ID_ARTICLE">#TITRE</a></li>
+		      </BOUCLE_Smenu>
+	      </ul>
+	 </li>
+	</BOUCLE_menu>
+	
+	</BOUCLE_langue>
+	
+	</ul>
+								</nav>

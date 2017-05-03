@@ -27,3 +27,7 @@ extras/documentation
 database.ini
 
 local.config.php
+
+data/testToOmeka.csv
+
+squelettes/.ok

@@ -12,6 +12,8 @@ class MigrerController extends Zend_Controller_Action
     {
         $s = new Flux_Site();
         
+        $url = "http://gapai.univ-paris8.fr/DesignEdition/?page=articlejson";
+        $this->view->data = $s->getUrlBodyContent($url); 
         
     }
 

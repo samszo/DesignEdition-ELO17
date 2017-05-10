@@ -32,8 +32,8 @@ class MigrerController extends Zend_Controller_Action
             function smartCopy($source, $dest, $options=array('folderPermission'=>0777,'filePermission'=>0777))
         {
             $result=false;
-            $source = "src=/DesignEdition/IMG/jpg/elo.jpg";
-            $dest = "src=/DesignEdition/tmp/upload/";
+            $source = "src= IMG/jpg/elo.jpg";
+            $dest = "src= tmp/upload/";
 
 
             if (is_file($source)) {

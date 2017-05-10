@@ -28,6 +28,6 @@ database.ini
 
 local.config.php
 
-data/testToOmeka.csv
-
 squelettes/.ok
+
+bdd/spip_designedition.sql.zip

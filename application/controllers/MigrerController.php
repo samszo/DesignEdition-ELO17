@@ -14,17 +14,17 @@ class MigrerController extends Zend_Controller_Action
 
         $url = "http://gapai.univ-paris8.fr/DesignEdition/?page=articlejson";
         $this->view->data = $s->getUrlBodyContent($url,false,false);
-        $this->view->arr = json_decode($this->view->data);
-
+        $data = json_decode($this->view->data);
+		if($this->_getParam('csv')){
+	        	foreach ($data as $d) {
+	        		$arr =  (array) $d;
+	        		//print_r($arr)."<br/>";
+	        		if(!$this->view->content)$this->view->content = $s->arrayToCsv(array_keys($arr),",").PHP_EOL;
+	        		$this->view->content .= $s->arrayToCsv($arr,",").PHP_EOL;
+	        	}
+        }else
+        		$this->view->content = json_encode($data);
+        
     }
-
-    if($this->_getParam('csv')){
-    				foreach ($data as $s) {
-    					if(!$this->view->content)$this->view->content = $data->arrayToCsv(array_keys($s),",").PHP_EOL;
-    					$this->view->content .= $data->arrayToCsv($s,",").PHP_EOL;
-    				}
-    			}else
-    				$this->view->content = json_encode($data);
-
 
 }

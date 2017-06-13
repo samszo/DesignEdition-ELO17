@@ -19,6 +19,11 @@ $www = "/var/www";
 set_include_path(get_include_path().PATH_SEPARATOR.$www."/Zend/library");
 require_once 'Zend/Application.php';
 
+define ("ROOT_PATH",$www."/DesignEdition/");
+define ("UPLOAD_PATH",ROOT_PATH."data/fic/");
+
+
+
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,

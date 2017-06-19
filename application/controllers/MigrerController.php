@@ -12,10 +12,10 @@ class MigrerController extends Zend_Controller_Action
     {
         $s = new Flux_Site();
 
-        $url = "http://gapai.univ-paris8.fr/DesignEdition/?page=articlejson";
+        $url = "http://gapai.univ-paris8.fr/DesignEdition/?page=commentjson";
         $this->view->data = $s->getUrlBodyContent($url,false,false);
-        $data = json_decode($this->view->data);        
-        
+        $data = json_decode($this->view->data);
+
 		if($this->_getParam('csv')){
 	        	foreach ($data as $d) {
 	        		$arr =  (array) $d;
@@ -25,24 +25,29 @@ class MigrerController extends Zend_Controller_Action
 	        	}
         }else
         		$this->view->content = json_encode($data);
-                		
-    }
-    
-    public function copieAction(){
-    	
-    		$this->view->content = $this->smartCopy(ROOT_PATH."IMG/jpg/elo.jpg",UPLOAD_PATH."test.jpg");
-    		 
+
     }
 
-    
+    public function copieAction(){
+
+    		$this->view->content = $this->smartCopy(ROOT_PATH."IMG/jpg/elo.jpg",UPLOAD_PATH."test.jpg");
+
+    }
+
+    public function commentAction(){
+
+        $this->view->content = $this->smartCopy(ROOT_PATH."IMG/mp4/8110393.mp4",UPLOAD_PATH."video.mp4");
+
+    }
+
     //Fonction copier coller
     function smartCopy($source, $dest, $options=array('folderPermission'=>0777,'filePermission'=>0777))
     {
     		$s = new Flux_Site();
     		$s->bTrace = true;
     		$s->Trace("$source, $dest");
-	    	$result=false;	    
-	    
+	    	$result=false;
+
 	    	if (is_file($source)) {
 	    		$s->Trace("fichier");
 	    		if ($dest[strlen($dest)-1]=='/') {
@@ -55,10 +60,10 @@ class MigrerController extends Zend_Controller_Action
 	    		}
 	    		$result=copy($source, $__dest);
 	    		chmod($__dest,$options['filePermission']);
-	    
+
 	    	} elseif(is_dir($source)) {
 	    		$s->Trace("dossier");
-	    		 
+
 	    		if ($dest[strlen($dest)-1]=='/') {
 	    			if ($source[strlen($source)-1]=='/') {
 	    				//Copy only contents
@@ -94,14 +99,14 @@ class MigrerController extends Zend_Controller_Action
 	    			}
 	    		}
 	    		closedir($dirHandle);
-	    
+
 	    	} else {
 	    		$s->Trace("Pas trouvé");
 	    		$result=false;
 	    	}
 	    	echo ("FIN");
-	    	
+
 	    	return $result;
     }
-    
+
 }

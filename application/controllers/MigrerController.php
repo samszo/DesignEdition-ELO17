@@ -1,8 +1,9 @@
+
 <?php
 
 class MigrerController extends Zend_Controller_Action
 {
-	var $bTrace = false;
+	var $bTrace = true;
 
     public function init()
     {
@@ -42,11 +43,11 @@ class MigrerController extends Zend_Controller_Action
     }
 
     public function csvtoomekaAction(){
-    
+
     		$s = new Flux_Site();
     		$s->bTrace = $this->bTrace;
     		$s->trace(__METHOD__." DEB");
-    		
+
     		$s->trace("récupère les données de SPIP");
     		$url = "http://gapai.univ-paris8.fr/DesignEdition/?page=commentjson&var_mode=recalcul";
     		$s->trace($url);
@@ -54,14 +55,14 @@ class MigrerController extends Zend_Controller_Action
 	    	$s->trace($this->view->json);
 	    $data = json_decode($this->view->json);
 	    	$s->trace("data=",$data);
-	    
+
 	    	$s->trace("construction du tableau pour OMEKA");
 	    	$dataOmeka = array();
 	    	foreach ($data as $d) {
-	    		$arr = array("owner"=>$d->auteur,"dcterms:title"=>$d->titre,"dcterms:type"=>"image");
+	    		$arr = array("owner"=>$d->auteur,"dcterms:title"=>$d->titre,"dcterms:type"=>$d->mime_type,"dcterms:date"=>$d->date,"dcterms:identifier"=>$d->id_document,"dcterms:language"=>$d->lang);
 	    		$s->trace("ligne=",$arr);
 	    		foreach ($d->doc as $c) {
-	    			$path_parts = pathinfo($c->url);	    			
+	    			$path_parts = pathinfo($c->url);
 		    		$newUrl = UPLOAD_PATH.$path_parts['basename'];
 		    		$this->smartCopy(ROOT_PATH.$c->url,$newUrl);
 		    		$arr["Image"] = $newUrl;
@@ -69,20 +70,20 @@ class MigrerController extends Zend_Controller_Action
 	    		$dataOmeka[]=$arr;
 	    	}
 	    	$s->trace("data Omeka",$dataOmeka);
-	    	
+
 	    	$s->trace("construction du csv");
 	    	foreach ($dataOmeka as $arr) {
 	    		$s->trace("Ligne",$arr);
 	    		if(!$this->view->content)$this->view->content = $s->arrayToCsv(array_keys($arr),",").PHP_EOL;
 	    		$this->view->content .= $s->arrayToCsv($arr,",").PHP_EOL;
-	    		$s->trace($this->view->content);	    		 
+	    		$s->trace($this->view->content);
 	    	}
-	    	
+
 	    	$s->trace(__METHOD__." FIN");
-	    	
+
     }
-    
-    
+
+
     //Fonction copier coller
     function smartCopy($source, $dest, $options=array('folderPermission'=>0777,'filePermission'=>0777))
     {
